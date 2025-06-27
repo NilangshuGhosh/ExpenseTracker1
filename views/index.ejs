@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: black;color: white;" >
+    
+<h1 style="display: flex;">Settled for today.
+
+    <a href="/summary" >get summary</a>
+
+</h1>
+
+<button id="button1"style="position: fixed;right: 0px;top: 0px;">Show More</button>
+
+<div id ="search" style=" display: none ;position: fixed;right: 0px;top: 25px;">
+
+    
+
+<form method="post" action="/index" style="display:list-item;">
+
+    <input type="hidden" name="FormType" value="FormA">
+
+    <label style="font-style: normal;font-weight: 100;font-size: medium;">
+month : <input name="month" type="number" >
+</label>
+
+ <label style="font-style: normal;font-weight: 100;font-size: medium;">
+year : <input name="year" type="number" >
+</label>
+
+<button type="submit">search</button>
+
+
+
+</form>
+
+
+</div>
+
+<form method="post" action="/index" style="display:list-item;">
+
+    <input type="hidden" name="FormType" value="FormC">
+
+    <label style="font-style: normal;font-weight: 100;font-size: medium;">
+Amount : <input name="amount" type="number" >
+</label>
+
+ <label style="font-style: normal;font-weight: 100;font-size: medium;">
+Category : <input name="category" type="text" >
+</label>
+
+<button type="submit">Add</button>
+
+</form>
+
+
+
+
+<% if(!locals.data||locals.data.length<1){ %>
+<h1>Happy Programming.</h1>
+<% } else {%>
+    <ul style="background-color: black;">
+<% for(let i=0;i<data.length;i++){ %>
+
+    <li style="color: violet;"> Amount :  <%= parseFloat(data[i].amount.replace(/[^0-9.]/g,'') )%>   Category :  <%= data[i].category %>   Date:  <%= data[i].entry_date %></li>
+<% } %>
+</ul>
+<% } %>
+
+
+
+
+<script>
+
+const d=document.getElementById("search");
+const b=document.getElementById("button1");
+b.addEventListener('click',()=>{
+
+if(d.style.display=='none'){
+    d.style.display='block';
+    b.textContent='Hide';
+}else{
+     d.style.display='none';
+     b.textContent='Show More';
+}
+
+})
+
+    
+</script>
+
+
+
+</body>
+
+
+
+</html>

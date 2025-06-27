@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary</title>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<form method="post" action="/summary" style="display: flex; gap: 10px; align-items: center;">
+  <label>Year: <input name="year" type="number" required></label>
+  <label>Month: <input name="month" type="number" required></label>
+  <button type="submit">Submit</button>
+</form>
+
+
+
+<% if (!locals.categoryData) { %>
+  <h1>Here your chart will be shown.</h1>
+<% } else { %>
+  <h1>Summary of all expenses in <%= month %>/<%= year %></h1>
+
+  <div style="width: 400px; margin: auto;">
+    <canvas id="categoryChart"></canvas>
+  </div>
+
+  <script>
+    const categories = <%- JSON.stringify(categoryData.map(row => row.category)) %>;
+    const totals = <%- JSON.stringify(categoryData.map(row => parseFloat(row.total))) %>;
+
+    const getRandomColor = () => {
+      const hue = Math.floor(Math.random() * 360);
+      return `hsl(${hue}, 70%, 65%)`;
+    };
+
+    const colors = categories.map(() => getRandomColor());
+
+    const ctx = document.getElementById('categoryChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: categories,
+        datasets: [{
+          label: 'Category-wise Expense',
+          data: totals,
+          backgroundColor: colors,
+          borderColor: '#fff',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'right'
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                let label = context.label || '';
+                let value = context.raw || 0;
+                return `${label}: ₹${value}`;
+              }
+            }
+          }
+        }
+      }
+    });
+  </script>
+<% } %>
+
+
+</body>
+</html>
+
+
