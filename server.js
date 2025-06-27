@@ -92,7 +92,7 @@ req.session.email=email;
 }
 
 })
-//  https://www.msn.com/en-in/autos/photos/when-is-yogini-ekadashi-in-2025-know-date-significance-puja-rituals-and-more/ar-AA1GCyvn?ocid=socialshare
+
 
 
 app.post("/register",async(req,res)=>{
@@ -190,7 +190,7 @@ res.render("index.ejs",{data:data});
 
 else{
 console.log(year);
-// Format start date as YYYY-MM-01
+// Format start date as YYYY-MM-01 then fine
 
 console.log(year+" "+month);
 const startDate = `${year}-${String(month).padStart(2, '0')}-01`;
@@ -198,7 +198,7 @@ const startDate = `${year}-${String(month).padStart(2, '0')}-01`;
 console.log(startDate);
 
 // Calculate first day of next month
-const nextMonth = new Date(year, month, 1); // Note: month is 0-indexed in JS
+const nextMonth = new Date(year, month, 1); 
 
 const endDate = new Date(nextMonth.getFullYear(), nextMonth.getMonth(), 1)
   .toISOString()
