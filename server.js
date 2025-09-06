@@ -42,9 +42,9 @@ const db = new pg.Client({
 });
 db.connect();
 
-// ---------------------
+
 // PASSPORT SERIALIZATION
-// ---------------------
+
 passport.serializeUser((user, done) => {
   done(null, user.email);
 });
@@ -60,9 +60,9 @@ passport.deserializeUser(async (email, done) => {
   }
 });
 
-// ---------------------
-// LOCAL STRATEGY (Your existing JWT-like login)
-// ---------------------
+
+// LOCAL STRATEGY 
+
 passport.use(
   new LocalStrategy(
     { usernameField: "email", passwordField: "password" },
@@ -88,9 +88,9 @@ passport.use(
   )
 );
 
-// ---------------------
+
 // GOOGLE STRATEGY
-// ---------------------
+
 passport.use(
   new GoogleStrategy(
     {
@@ -207,10 +207,9 @@ app.post("/register", async (req, res) => {
   }
 });
 
-// ---------------------
-// Your existing /index and /summary routes remain unchanged
-// ---------------------
+
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+
